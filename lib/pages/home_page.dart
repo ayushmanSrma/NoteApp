@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app/model/note_data.dart';
 import 'package:provider/provider.dart';
-
 import '../model/note.dart';
 import 'edit_note_page.dart';
 
@@ -32,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditingNotePage(note: note, isNewNote: false),
+        builder: (context) => EditingNotePage(note: note, isNewNote: isNewNote),
       ),
     );
   }
@@ -56,30 +55,33 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-        body: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 75, right: 150, bottom: 10),
-              child: Text(
-                'Notes',
-                style: TextStyle(
-                    letterSpacing: 1,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 40,
-                    fontFamily: 'AppleFont'),
-              ),
-            ),
-
-            //list of notes
-            CupertinoListSection.insetGrouped(
-              children: List.generate(
-                value.getAllNotes().length,
-                (index) => CupertinoListTile(
-                  title: Text(value.getAllNotes()[index].text),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(top: 75, right: 150, bottom: 10),
+                child: Text(
+                  'Notes',
+                  style: TextStyle(
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w800,
+                      fontSize: 40,
+                      fontFamily: 'AppleFont'),
                 ),
               ),
-            ),
-          ],
+
+              //list of notes
+              CupertinoListSection.insetGrouped(
+                children: List.generate(
+                  value.getAllNotes().length,
+                  (index) => CupertinoListTile(
+                    title: Text(value.getAllNotes()[index].text),
+                    onTap: ()=>goToNotePage(value.getAllNotes()[index],false),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
