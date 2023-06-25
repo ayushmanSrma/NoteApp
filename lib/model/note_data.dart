@@ -1,18 +1,24 @@
 import 'package:flutter/foundation.dart';
+import 'package:note_app/data/hive_database.dart';
 
 import 'note.dart';
 
 class NoteData extends ChangeNotifier {
+  //hive database
+  final db = HiveDatabase();
+
   //overall list of notes
   List<Note> allNotes = [
     //default first note
-    Note(id: 0, text:"First Note"),
-    Note(id: 1, text:"Second Note"),
-    Note(id: 2, text:"Third Note"),
+
   ];
 
-  //get notes
+  //initialising the list
+  void initialiseList(){
+    allNotes = db.loadNotes();
+  }
 
+  //get notes
   List<Note> getAllNotes(){
     return allNotes;
   }
@@ -39,5 +45,6 @@ class NoteData extends ChangeNotifier {
   //delete note
   void deleteNode(Note note){
     allNotes.remove(note);
+    notifyListeners();
   }
 }

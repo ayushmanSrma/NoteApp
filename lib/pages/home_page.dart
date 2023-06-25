@@ -13,6 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<NoteData>(context, listen: false).initialiseList();
+  }
+
   //create new note
   void createNewNote() {
     //create new id
@@ -37,8 +44,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   //delete note
-  void deleteNote(Note note){
-    Provider.of<NoteData>(context,listen: false).deleteNode(note);
+  void deleteNote(Note note) {
+    Provider.of<NoteData>(context, listen: false).deleteNode(note);
   }
 
   @override
@@ -71,15 +78,30 @@ class _HomePageState extends State<HomePage> {
               ),
 
               //list of notes
-              CupertinoListSection.insetGrouped(
-                children: List.generate(
-                  value.getAllNotes().length,
-                  (index) => CupertinoListTile(
-                    title: Text(value.getAllNotes()[index].text),
-                    onTap: ()=>goToNotePage(value.getAllNotes()[index],false),
-                  ),
-                ),
-              ),
+              value.getAllNotes().length == 0
+                  ? Center(
+                      child: Text(
+                        'Nothing Here',
+                        style: TextStyle(
+                            fontFamily: "AppleFont", color: Colors.grey),
+                      ),
+                    )
+                  : CupertinoListSection.insetGrouped(
+                      children: List.generate(
+                        value.getAllNotes().length,
+                        (index) => CupertinoListTile(
+                          title: Text(value.getAllNotes()[index].text),
+                          onTap: () =>
+                              goToNotePage(value.getAllNotes()[index], false),
+                          trailing: IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: (){
+                              deleteNote(value.getAllNotes()[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),
