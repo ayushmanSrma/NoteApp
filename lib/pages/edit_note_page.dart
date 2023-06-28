@@ -47,7 +47,7 @@ class _EditingNotePageState extends State<EditingNotePage> {
   void updateNote(){
     //get text from editor
     String text = _controller.document.toPlainText();
-    //update note
+    //update not e
     Provider.of<NoteData>(context,listen: false).updateNote(widget.note, text);
 
   }

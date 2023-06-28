@@ -9,7 +9,6 @@ class HiveDatabase{
   //load our data
 List<Note> loadNotes(){
   List<Note> savedNotesFormatted = [];
-
   //if there is note return that,otherwise return empty note
   if (_mybox.get('All_Notes') != null){
     List<dynamic> savedNotes = _mybox.get('All_Notes');
@@ -27,7 +26,7 @@ List<Note> loadNotes(){
 }
 
   //save our data
-  void savedNotes(List<Note> allNote){
+  void savedNotes(List<Note> allNotes){
   List<List<dynamic>> allNotesFormatted =[
   /*
   save note format
@@ -39,7 +38,7 @@ List<Note> loadNotes(){
    */
     ];
 
-  for(var note in allNote){
+  for(var note in allNotes){
     int id = note.id;
     String text = note.text;
     allNotesFormatted.add([id,text]);

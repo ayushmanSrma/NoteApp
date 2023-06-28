@@ -10,7 +10,6 @@ class NoteData extends ChangeNotifier {
   //overall list of notes
   List<Note> allNotes = [
     //default first note
-
   ];
 
   //initialising the list

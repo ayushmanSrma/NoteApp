@@ -6,6 +6,7 @@ import 'package:note_app/pages/home_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   //initialise hive
   await Hive.initFlutter();
   //open hive box
